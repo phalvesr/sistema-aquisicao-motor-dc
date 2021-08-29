@@ -24,23 +24,24 @@ void interrupt()
             SET(SEND_MESSAGE);
         }
         
-        TMR0 = 99;
-        TMR0IF_bit = 0;
+        LOAD_REGISTER_WITH(TMR0, 99);
+        CLEAR(TMR0IF_bit);
     }
 }
 // Função principal
 void main() 
 {
+     unsigned int currentMeasure = 0, voltageMeasure = 0;
      configureRegisters();
-
+     
     while(true)
     {
         if (SEND_MESSAGE) {
             CLEAR(SEND_MESSAGE);
-            voltageMovingAverage(VOLTAGE_INPUT_PIN);
-            currentMovingAverage(CURRENT_INPUT_PIN);
-            sendSerialData('V', 1023);
-            sendSerialData('I', 255);
+            voltageMeasure = voltageMovingAverage(VOLTAGE_INPUT_PIN);
+            currentMeasure = currentMovingAverage(CURRENT_INPUT_PIN);
+            sendSerialData(VOLTAGE, voltageMeasure);
+            sendSerialData(CURRENT, currentMeasure);
             PIC_UART_EOL;
         }
     }

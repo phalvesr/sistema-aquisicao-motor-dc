@@ -16,7 +16,7 @@ double voltageMovingAverage(int voltagePin)
           index = 0;
        }
 
-       // voltageReads[index] = analogRead(voltagePin);
+       voltageReads[index] = ADC_Get_Sample(voltagePin);
 
        for (i = 0; i < MAX_VOLTAGE_READS; i++)
        {
@@ -40,7 +40,7 @@ double currentMovingAverage(int currentPin)
           index = 0;
        }
 
-       // voltageReads[index] = analogRead(voltagePin);
+       voltageReads[index] = ADC_Get_Sample(currentPin);
 
        for (i = 0; i < MAX_CURRENT_READS; i++)
        {

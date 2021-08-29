@@ -28,7 +28,7 @@ void ConfigureRegisters()
   
   CMCON = 0x07;
   ADCON0 = 0b00000001;
-  ADCON1 = 0b10001110;
+  ADCON1 = 0b10001101;
   
   TRISA = 0b11111011;
   PORTA = 0xFF;
