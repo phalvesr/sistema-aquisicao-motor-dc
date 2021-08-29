@@ -27,10 +27,10 @@ void ConfigureRegisters()
   // Registers referents to IOs
   
   CMCON = 0x07;
-  ADCON0 = 0b00000001;
+  ADCON0 = 0b10000001;
   ADCON1 = 0b10001101;
   
-  TRISA = 0b11111011;
+  TRISA = 0b11011011;
   PORTA = 0xFF;
   
   // UART configuration

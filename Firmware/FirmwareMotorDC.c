@@ -15,14 +15,10 @@ void interrupt()
      // Base de tempo de 10ms
     if (TMR0IF_bit)
     {
-        counter++;
-        // Base de tempo de 50ms
-        if (counter == 5)
-        {
-            TOGGLE(DEBUG_PIN);
-            counter = 0;
-            SET(SEND_MESSAGE);
-        }
+
+        TOGGLE(DEBUG_PIN);
+        counter = 0;
+        SET(SEND_MESSAGE);
         
         LOAD_REGISTER_WITH(TMR0, 99);
         CLEAR(TMR0IF_bit);

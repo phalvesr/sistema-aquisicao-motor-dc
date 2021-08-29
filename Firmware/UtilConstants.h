@@ -4,13 +4,13 @@
 // Software constants:
 #define true  1
 #define false 0
+#define VOLTAGE 'V'
+#define CURRENT 'I'
 
 // Hardware map:
 #define VOLTAGE_INPUT_PIN 0
 #define CURRENT_INPUT_PIN 1
-#define DEBUG_PIN PORTA.F2
-#define VOLTAGE 'V'
-#define CURRENT 'I'
+#define DEBUG_PIN PORTA.F5
 #define SEND_MESSAGE flagsA.F0
 
 // Macros:
