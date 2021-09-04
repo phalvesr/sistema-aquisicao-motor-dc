@@ -24,22 +24,17 @@ void interrupt()
     
     if (TMR0IF_bit)
     {
+        SET(SEND_MESSAGE);
         tenMillisecondsCounter++;
         LOAD_REGISTER_WITH(TMR0, 99);
         CLEAR(TMR0IF_bit);
     }
-    
-    // Base de tempo 100ms
-    if (tenMillisecondsCounter == 10)
+
+    // Base de tempo de 1 minuto
+    if (tenMillisecondsCounter == 6000)
     {
-       SET(SEND_MESSAGE);
-       hundredMillisecondsCounter++;
+       TOGGLE(DEBUG_PIN);
        tenMillisecondsCounter = 0;
-    }
-    // Base de tempo de 1 segundo
-    if (hundredMillisecondsCounter == 10)
-    {
-       hundredMillisecondsCounter = 0;
        SET(SEND_RPM);
     }
 }
