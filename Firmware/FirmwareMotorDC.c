@@ -1,4 +1,8 @@
 /*
+        === Projeto: Plataforma embarcada de aquisição de dados motor DC ===
+        Instituto Federal de Educação, Ciência e Tecnologia de São Paulo - IFSP
+        Autor: Pedro Henrique Alves Rosendo
+        Curso: Engenharia de Controle e Automação
         Hardware: PIC 16F876A
         Crystal: 16 MHZ
 */
@@ -12,16 +16,31 @@
 // Função de interrupção
 void interrupt() 
 {
-     // Base de tempo de 10ms
+    if (INTF_bit)
+    {
+       CLEAR(INTF_bit);
+       pulses++;
+    }
+    
     if (TMR0IF_bit)
     {
-
-        TOGGLE(DEBUG_PIN);
-        counter = 0;
-        SET(SEND_MESSAGE);
-        
+        tenMillisecondsCounter++;
         LOAD_REGISTER_WITH(TMR0, 99);
         CLEAR(TMR0IF_bit);
+    }
+    
+    // Base de tempo 100ms
+    if (tenMillisecondsCounter == 10)
+    {
+       SET(SEND_MESSAGE);
+       hundredMillisecondsCounter++;
+       tenMillisecondsCounter = 0;
+    }
+    // Base de tempo de 1 segundo
+    if (hundredMillisecondsCounter == 10)
+    {
+       hundredMillisecondsCounter = 0;
+       SET(SEND_RPM);
     }
 }
 // Função principal
@@ -38,6 +57,14 @@ void main()
             currentMeasure = currentMovingAverage(CURRENT_INPUT_PIN);
             sendSerialData(VOLTAGE, voltageMeasure);
             sendSerialData(CURRENT, currentMeasure);
+            
+            if (SEND_RPM)
+            {
+               CLEAR(SEND_RPM);
+               sendSerialData(RPM, pulses);
+               pulses = 0;
+            }
+            
             PIC_UART_EOL;
         }
     }

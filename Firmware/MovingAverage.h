@@ -4,7 +4,7 @@
 #define MAX_VOLTAGE_READS 8
 #define MAX_CURRENT_READS 8
 
-double voltageMovingAverage(int voltagePin)
+int voltageMovingAverage(int voltagePin)
 {
        static int voltageReads[MAX_VOLTAGE_READS] = { 0, 0, 0, 0, 0, 0, 0, 0 };
        unsigned static int index = 0;
@@ -25,10 +25,10 @@ double voltageMovingAverage(int voltagePin)
 
        index++;
 
-       return sum / ((double)MAX_VOLTAGE_READS);
+       return sum / MAX_VOLTAGE_READS;
 }
 
-double currentMovingAverage(int currentPin)
+int currentMovingAverage(int currentPin)
 {
        static int voltageReads[MAX_CURRENT_READS] = { 0, 0, 0, 0, 0, 0, 0, 0 };
        unsigned static int index = 0;
@@ -49,7 +49,7 @@ double currentMovingAverage(int currentPin)
        
        index++;
 
-       return sum / ((double)MAX_CURRENT_READS);
+       return sum / MAX_CURRENT_READS;
 }
 
 #endif
