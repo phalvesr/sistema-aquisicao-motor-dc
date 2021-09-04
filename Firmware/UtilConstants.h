@@ -16,10 +16,12 @@
 #define SEND_RPM flagsA.F1
 
 // Macros:
-#define CLEAR(bit)   bit = 0
-#define SET(bit)     bit = 1
-#define TOGGLE(bit)  bit = ~bit
+#define CLEAR(bit)                           bit = 0
+#define SET(bit)                             bit = 1
+#define TOGGLE(bit)                          bit = ~bit
 #define LOAD_REGISTER_WITH(register, value)  register = value
-#define PIC_UART_EOL    UART1_Write('\r'); UART1_Write('\n')
+#define FROM_RPS_TO_RPM(rps)                 rps * 60
+#define PIC_UART_EOL                         UART1_Write('\r'); \
+                                             UART1_Write('\n')
 
 #endif

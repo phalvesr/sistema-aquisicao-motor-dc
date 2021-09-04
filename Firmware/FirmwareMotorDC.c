@@ -12,31 +12,14 @@
 #include "MovingAverage.h"
 #include "UtilConstants.h"
 #include "GlobalVariables.h"
+#include "InterruptInlinerFunctions.h"
 
 // Função de interrupção
 void interrupt() 
 {
-    if (INTF_bit)
-    {
-       CLEAR(INTF_bit);
-       pulses++;
-    }
-    
-    if (TMR0IF_bit)
-    {
-        SET(SEND_MESSAGE);
-        tenMillisecondsCounter++;
-        LOAD_REGISTER_WITH(TMR0, 99);
-        CLEAR(TMR0IF_bit);
-    }
-
-    // Base de tempo de 1 minuto
-    if (tenMillisecondsCounter == 6000)
-    {
-       TOGGLE(DEBUG_PIN);
-       tenMillisecondsCounter = 0;
-       SET(SEND_RPM);
-    }
+    checkAndHandleExternalInterrupt();
+    checkAndHandleTimerZeroOverflowEveryTenMilliseconds();
+    checkAndHandleRPMSendFlagEveryOneSecond();
 }
 // Função principal
 void main() 
@@ -56,8 +39,9 @@ void main()
             if (SEND_RPM)
             {
                CLEAR(SEND_RPM);
-               sendSerialData(RPM, pulses);
+               sendSerialData(RPM, FROM_RPS_TO_RPM(pulses));
                pulses = 0;
+               //TOGGLE(DEBUG_PIN);
             }
             
             PIC_UART_EOL;
