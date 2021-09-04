@@ -17,9 +17,9 @@
 // Função de interrupção
 void interrupt() 
 {
-    checkAndHandleExternalInterrupt();
-    checkAndHandleTimerZeroOverflowEveryTenMilliseconds();
-    checkAndHandleRPMSendFlagEveryOneSecond();
+    CHECK_AND_HANDLE_EXTERNAL_INTERRUPT
+    CHECK_AND_HANDLE_TIMER_ZERO_OVERFLOW_EVERY_TEN_MILLISECONDS
+    CHECK_AND_HANDLE_RPM_SEND_FLAG_EVERY_ONE_SECOND
 }
 // Função principal
 void main() 
@@ -41,7 +41,6 @@ void main()
                CLEAR(SEND_RPM);
                sendSerialData(RPM, FROM_RPS_TO_RPM(pulses));
                pulses = 0;
-               //TOGGLE(DEBUG_PIN);
             }
             
             PIC_UART_EOL;

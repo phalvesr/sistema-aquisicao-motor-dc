@@ -1,12 +1,12 @@
 #ifndef _MOVING_AVERAGE_H_
 #define _MOVING_AVERAGE_H_
 
-#define MAX_VOLTAGE_READS 8
-#define MAX_CURRENT_READS 8
+#define MAX_VOLTAGE_READS 16
+#define MAX_CURRENT_READS 16
 
 int voltageMovingAverage(int voltagePin)
 {
-       static int voltageReads[MAX_VOLTAGE_READS] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+       static int voltageReads[MAX_VOLTAGE_READS];
        unsigned static int index = 0;
        int i;
        double sum = 0;
@@ -30,7 +30,7 @@ int voltageMovingAverage(int voltagePin)
 
 int currentMovingAverage(int currentPin)
 {
-       static int voltageReads[MAX_CURRENT_READS] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+       static int voltageReads[MAX_CURRENT_READS];
        unsigned static int index = 0;
        int i;
        double sum = 0;

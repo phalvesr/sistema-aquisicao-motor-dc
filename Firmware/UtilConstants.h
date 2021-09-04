@@ -23,5 +23,7 @@
 #define FROM_RPS_TO_RPM(rps)                 rps * 60
 #define PIC_UART_EOL                         UART1_Write('\r'); \
                                              UART1_Write('\n')
+#define CheckAndHandleExternalInterrupt      if (INTF_bit) { CLEAR(INTF_bit); pulses++; }
+
 
 #endif
