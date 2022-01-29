@@ -45,10 +45,16 @@ float mapVoltageToCurrent(float voltage) {
 }
 
 float applyMovingAvarage(float voltage) {
+  static bool firstExecution = true;
   static float measures[MOVING_AVERAGE_SIZE];
-  fillInWithZeros(measures, MOVING_AVERAGE_SIZE);
   static int index = 0;
+  
   float movingAverageSum = 0;
+  
+  if (firstExecution) {
+    fillInWithZeros(measures, MOVING_AVERAGE_SIZE);
+    firstExecution = false;
+  }
   
   if (index > 7) {
     index = 0;
