@@ -5,7 +5,7 @@
 #define ZERO_STATE_VOLTAGE            2.46
 
 // Difining constants...
-const int MOVING_AVERAGE_SIZE =           8;
+const int MOVING_AVERAGE_SIZE =           16;
 const int MOVING_AVARAGE_SUM_MAX_INDEX =  (MOVING_AVERAGE_SIZE - 1);
 
 float mapDiscreteValueToVoltage(int discreteValue);
@@ -56,7 +56,7 @@ float applyMovingAvarage(float voltage) {
     firstExecution = false;
   }
   
-  if (index > 7) {
+  if (index > MOVING_AVARAGE_SUM_MAX_INDEX) {
     index = 0;
   }
 
